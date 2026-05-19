@@ -14,7 +14,20 @@
       "Bash(git push *)",
       "Bash(python3 -c \"import uuid; print\\(uuid.uuid4\\(\\)\\)\")",
       "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(json.dumps\\(d['choices'][0]['settings'], indent=2\\)\\)\")",
-      "Bash(node -e ' *)"
+      "Bash(node -e ' *)",
+      "Bash(curl -sk https://127.0.0.1:27124/)",
+      "Bash(curl -sk -H \"Authorization: Bearer 27afd7b93f2d117b3cff10d13e9f6439b6bead343b2a2e1cfe0459956e9c98f2\" https://127.0.0.1:27124/vault/)",
+      "Bash(cat ~/.claude/settings.json 2>/dev/null || echo \"NO_FILE\")",
+      "Read(//Users/miguel/.claude/**)",
+      "Bash(curl -sk https://127.0.0.1:27124/mcp)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(d.get\\('manifest',{}\\).get\\('version',''\\)\\)\")",
+      "Bash(curl -sk -H \"Authorization: Bearer 27afd7b93f2d117b3cff10d13e9f6439b6bead343b2a2e1cfe0459956e9c98f2\" https://127.0.0.1:27124/mcp)",
+      "Bash(curl -s -H \"Authorization: Bearer 27afd7b93f2d117b3cff10d13e9f6439b6bead343b2a2e1cfe0459956e9c98f2\" http://127.0.0.1:27123/mcp)",
+      "Bash(curl -sv -H \"Authorization: Bearer 27afd7b93f2d117b3cff10d13e9f6439b6bead343b2a2e1cfe0459956e9c98f2\" -H \"Accept: text/event-stream\" http://127.0.0.1:27123/mcp)",
+      "Bash(uvx --version)",
+      "Bash(npx --version)",
+      "Bash(curl -s http://localhost:27123/)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(json.dumps\\(d.get\\('mcpServers',{}\\), indent=2\\)\\)\")"
     ]
   }
 }
