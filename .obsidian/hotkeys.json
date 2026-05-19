@@ -1,0 +1,14 @@
+{
+  "daily-notes:goto-today": [
+    {"modifiers": ["Mod", "Shift"], "key": "D"}
+  ],
+  "templater-obsidian:insert-templater": [
+    {"modifiers": ["Mod", "Shift"], "key": "T"}
+  ],
+  "graph:open": [
+    {"modifiers": ["Mod"], "key": "G"}
+  ],
+  "quickadd:choice:ed172b4a-979f-452a-ac32-1745bc68ddc1": [
+    {"modifiers": ["Mod", "Shift"], "key": "A"}
+  ]
+}

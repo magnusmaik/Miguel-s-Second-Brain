@@ -1,5 +1,39 @@
 {
-  "choices": [],
+  "choices": [
+    {
+      "id": "ed172b4a-979f-452a-ac32-1745bc68ddc1",
+      "name": "Captura rápida",
+      "type": "Capture",
+      "command": true,
+      "settings": {
+        "captureTo": "00 Inbox/Inbox.md",
+        "captureToActiveFile": false,
+        "prepareCapture": false,
+        "captureFormat": "- {{DATE:YYYY-MM-DD HH:mm}} {{VALUE}}",
+        "captureHeader": "",
+        "createFileIfItDoesntExist": {
+          "enabled": true,
+          "createWithTemplate": false,
+          "template": ""
+        },
+        "insertAfter": {
+          "enabled": false,
+          "after": "",
+          "insertAtEnd": true,
+          "considerSubsections": false
+        },
+        "appendLink": false,
+        "task": false,
+        "openFileInNewTab": {
+          "enabled": false,
+          "direction": "vertical",
+          "focus": true
+        },
+        "openFile": false,
+        "openFileInMode": "default"
+      }
+    }
+  ],
   "inputPrompt": "single-line",
   "persistInputPromptDrafts": true,
   "useSelectionAsCaptureValue": true,
