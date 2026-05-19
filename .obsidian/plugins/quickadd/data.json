@@ -31,7 +31,9 @@
         },
         "openFile": false,
         "openFileInMode": "default"
-      }
+      },
+      "captureToActiveFile": false,
+      "activeFileWritePosition": "cursor"
     }
   ],
   "inputPrompt": "single-line",

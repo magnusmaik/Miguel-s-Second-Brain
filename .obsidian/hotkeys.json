@@ -1,14 +1,47 @@
 {
   "daily-notes:goto-today": [
-    {"modifiers": ["Mod", "Shift"], "key": "D"}
-  ],
-  "templater-obsidian:insert-templater": [
-    {"modifiers": ["Mod", "Shift"], "key": "T"}
+    {
+      "modifiers": [
+        "Mod",
+        "Shift"
+      ],
+      "key": "D"
+    }
   ],
   "graph:open": [
-    {"modifiers": ["Mod"], "key": "G"}
+    {
+      "modifiers": [
+        "Mod"
+      ],
+      "key": "G"
+    }
+  ],
+  "daily-notes": [
+    {
+      "modifiers": [
+        "Mod",
+        "Shift"
+      ],
+      "key": "D"
+    }
   ],
   "quickadd:choice:ed172b4a-979f-452a-ac32-1745bc68ddc1": [
-    {"modifiers": ["Mod", "Shift"], "key": "A"}
-  ]
+    {
+      "modifiers": [
+        "Mod",
+        "Shift"
+      ],
+      "key": "A"
+    }
+  ],
+  "templater-obsidian:insert-templater": [
+    {
+      "modifiers": [
+        "Mod",
+        "Shift"
+      ],
+      "key": "T"
+    }
+  ],
+  "workspace:undo-close-pane": []
 }
