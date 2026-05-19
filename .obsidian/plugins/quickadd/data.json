@@ -9,7 +9,10 @@
       "captureToActiveFile": false,
       "activeFileWritePosition": "append",
       "prepend": false,
-      "captureFormat": "- {{DATE:YYYY-MM-DD HH:mm}} {{VALUE}}",
+      "format": {
+        "enabled": false,
+        "format": ""
+      },
       "captureHeader": "",
       "insertAfter": {
         "enabled": false,
