@@ -1,0 +1,19 @@
+{
+  "commitMessage": "vault: auto-backup {{date}}",
+  "autoSaveInterval": 10,
+  "autoPullInterval": 10,
+  "autoPullOnBoot": true,
+  "disablePush": false,
+  "pullBeforePush": true,
+  "autoBackupAfterFileChange": false,
+  "updateSubmodules": false,
+  "syncMethod": "merge",
+  "gitPath": "",
+  "customMessageOnAutoBackup": false,
+  "autoCommitMessage": "vault: auto-backup {{date}}",
+  "commitDateFormat": "YYYY-MM-DD HH:mm:ss",
+  "listChangedFilesInMessageBody": false,
+  "showStatusBar": true,
+  "differentIntervalCommitAndPush": false,
+  "changedFilesInStatusBar": false
+}
