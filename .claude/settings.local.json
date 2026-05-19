@@ -31,7 +31,15 @@
       "Bash(claude mcp *)",
       "Read(//Users/miguel/**)",
       "Bash(python3 -m json.tool)",
-      "Bash(timeout 5 curl -v -N -H 'Authorization: Bearer 27afd7b93f2d117b3cff10d13e9f6439b6bead343b2a2e1cfe0459956e9c98f2' -H 'Accept: text/event-stream' -H 'Cache-Control: no-cache' http://127.0.0.1:27123/mcp)"
+      "Bash(timeout 5 curl -v -N -H 'Authorization: Bearer 27afd7b93f2d117b3cff10d13e9f6439b6bead343b2a2e1cfe0459956e9c98f2' -H 'Accept: text/event-stream' -H 'Cache-Control: no-cache' http://127.0.0.1:27123/mcp)",
+      "mcp__obsidian__active_file_get_path",
+      "Bash(curl -s http://127.0.0.1:27123/)",
+      "mcp__obsidian__vault_list",
+      "Bash(curl -s -H \"Authorization: Bearer 27afd7b93f2d117b3cff10d13e9f6439b6bead343b2a2e1cfe0459956e9c98f2\" http://127.0.0.1:27123/vault/)",
+      "Bash(timeout 5 curl -s -N -H \"Authorization: Bearer 27afd7b93f2d117b3cff10d13e9f6439b6bead343b2a2e1cfe0459956e9c98f2\" -H \"Accept: application/json\" -H \"Content-Type: application/json\" -X POST http://127.0.0.1:27123/mcp -d '{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"tools/list\"}')",
+      "Bash(curl -s -m 5 -H \"Authorization: Bearer 27afd7b93f2d117b3cff10d13e9f6439b6bead343b2a2e1cfe0459956e9c98f2\" -H \"Accept: application/json\" -H \"Content-Type: application/json\" -X POST http://127.0.0.1:27123/mcp -d '{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"tools/list\"}')",
+      "Bash(curl -s -m 10 -H \"Authorization: Bearer 27afd7b93f2d117b3cff10d13e9f6439b6bead343b2a2e1cfe0459956e9c98f2\" -H \"Accept: application/json, text/event-stream\" -H \"Content-Type: application/json\" -X POST http://127.0.0.1:27123/mcp -d '{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"tools/list\"}')",
+      "Bash(curl -s -m 5 -N -H \"Authorization: Bearer 27afd7b93f2d117b3cff10d13e9f6439b6bead343b2a2e1cfe0459956e9c98f2\" -H \"Accept: text/event-stream\" http://127.0.0.1:27123/mcp)"
     ]
   }
 }
