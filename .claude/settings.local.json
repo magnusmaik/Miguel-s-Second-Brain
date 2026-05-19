@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "Bash(ls ~/Documents/ 2>/dev/null | grep -i miguel; ls /Applications/ | grep -i obsidian; echo \"---\"; ls ~/Documents/MiguelVault 2>/dev/null && echo \"Vault existe\" || echo \"Vault NO existe\")",
+      "Read(//Users/miguel/Documents/**)",
+      "Read(//Applications/**)",
+      "Bash(git init *)",
+      "Bash(git branch *)",
+      "Bash(git remote *)",
+      "Bash(cat)",
+      "Bash(git add *)",
+      "Bash(git commit *)"
+    ]
+  }
+}
