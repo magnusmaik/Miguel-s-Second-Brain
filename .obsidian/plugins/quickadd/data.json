@@ -5,35 +5,27 @@
       "name": "Captura rápida",
       "type": "Capture",
       "command": true,
-      "settings": {
-        "captureTo": "00 Inbox/Inbox.md",
-        "captureToActiveFile": false,
-        "prepareCapture": false,
-        "captureFormat": "- {{DATE:YYYY-MM-DD HH:mm}} {{VALUE}}",
-        "captureHeader": "",
-        "createFileIfItDoesntExist": {
-          "enabled": true,
-          "createWithTemplate": false,
-          "template": ""
-        },
-        "insertAfter": {
-          "enabled": false,
-          "after": "",
-          "insertAtEnd": true,
-          "considerSubsections": false
-        },
-        "appendLink": false,
-        "task": false,
-        "openFileInNewTab": {
-          "enabled": false,
-          "direction": "vertical",
-          "focus": true
-        },
-        "openFile": false,
-        "openFileInMode": "default"
-      },
+      "captureTo": "00 Inbox/Inbox.md",
       "captureToActiveFile": false,
-      "activeFileWritePosition": "cursor"
+      "activeFileWritePosition": "append",
+      "prepend": false,
+      "captureFormat": "- {{DATE:YYYY-MM-DD HH:mm}} {{VALUE}}",
+      "captureHeader": "",
+      "insertAfter": {
+        "enabled": false,
+        "after": "",
+        "insertAtEnd": true,
+        "considerSubsections": false
+      },
+      "createFileIfItDoesntExist": {
+        "enabled": true,
+        "createWithTemplate": false,
+        "template": ""
+      },
+      "appendLink": false,
+      "task": false,
+      "openFile": false,
+      "openFileInMode": "default"
     }
   ],
   "inputPrompt": "single-line",
