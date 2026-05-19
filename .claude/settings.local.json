@@ -27,7 +27,11 @@
       "Bash(uvx --version)",
       "Bash(npx --version)",
       "Bash(curl -s http://localhost:27123/)",
-      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(json.dumps\\(d.get\\('mcpServers',{}\\), indent=2\\)\\)\")"
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(json.dumps\\(d.get\\('mcpServers',{}\\), indent=2\\)\\)\")",
+      "Bash(claude mcp *)",
+      "Read(//Users/miguel/**)",
+      "Bash(python3 -m json.tool)",
+      "Bash(timeout 5 curl -v -N -H 'Authorization: Bearer 27afd7b93f2d117b3cff10d13e9f6439b6bead343b2a2e1cfe0459956e9c98f2' -H 'Accept: text/event-stream' -H 'Cache-Control: no-cache' http://127.0.0.1:27123/mcp)"
     ]
   }
 }
