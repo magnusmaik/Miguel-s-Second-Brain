@@ -39,6 +39,9 @@ Auto-instalable en 1 día, respuesta postventa en menos de 24h, instalación gra
 ### Plan de acción original
 Landing page: 10 días. Campañas publicitarias: inicio 5 días después de entregada la landing.
 
+### Cierre de la relación (2026)
+Friofog volvió a contactar para una nueva temporada. Se planteó ampliar el alcance con servicios complementarios, lo que implicó subir el precio. El cliente decidió no continuar por esa razón. La propuesta de expansión (nuevas regiones, envíos, instalación propia) no se llegó a ejecutar — queda descartada, no es un plan vigente.
+
 ## Conexiones
 - [[[Cliente] Friofog — Copys de anuncios Fase 2]]
 - [[[Cliente] Friofog — Reporte Meta Ads septiembre (cifras ilustrativas)]]
