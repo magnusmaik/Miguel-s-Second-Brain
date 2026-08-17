@@ -1,5 +1,5 @@
 ---
-created: 2026-08-13
+created: 2026-08-14
 type: resource
 status: draft
 tags: [area/agencia, area/marketing]
@@ -7,7 +7,7 @@ tags: [area/agencia, area/marketing]
 
 ## [Framework] SB7 + ChatGPT para Storybrand y copys de funnel
 
-Proceso propio para desarrollar el storybrand y los copys de un funnel completo usando ChatGPT, basado en la fórmula SB7 de Donald Miller (libro "Cómo Construir un Storybrand"). 
+Proceso propio para desarrollar el storybrand y los copys de un funnel completo usando ChatGPT, basado en la fórmula SB7 de Donald Miller (libro "Cómo Construir un Storybrand").
 
 *Nota: el documento fuente usa una empresa ficticia de ejemplo, "Maintec" (metalmecánica industrial), para ilustrar cada paso — no es contenido específico de Friofog, es la plantilla que se aplica a cualquier cliente nuevo.*
 

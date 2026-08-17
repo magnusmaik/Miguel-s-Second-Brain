@@ -39,6 +39,7 @@ literature
 area/agencia
 area/marketing
 area/ia
+area/creativo
 area/personal
 estado/draft
 estado/evergreen

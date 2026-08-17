@@ -1,5 +1,5 @@
 ---
-created: 2026-08-13
+created: 2026-08-14
 type: literature
 source: "Material de mentoría MarkGrowth"
 author: MarkGrowth (comunidad de Tomás)
@@ -18,3 +18,4 @@ Estructura de 3 fases de descubrimiento para llamadas de venta consultiva: prime
 
 ## Conexiones con lo que ya sé
 - [[[Charlie Morgan - Imperium Acquisition] Guion de ventas SMMA - línea de interrogatorio]]
+- [[[Framework] Green Growth — Proceso de venta y manejo de objeciones]]

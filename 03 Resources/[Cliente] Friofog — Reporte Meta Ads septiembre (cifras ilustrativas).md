@@ -1,5 +1,5 @@
 ---
-created: 2026-08-13
+created: 2026-08-14
 type: resource
 status: draft
 tags: [area/agencia]
@@ -17,3 +17,4 @@ Vale la pena guardar esta nota por el **formato del reporte** (qué métricas tr
 
 ## Conexiones
 - [[[Cliente] Friofog — Contexto de negocio y kickoff]]
+- [[[Framework] Métricas de Meta Ads y funnel de conversión]]

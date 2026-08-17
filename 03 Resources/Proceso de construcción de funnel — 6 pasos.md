@@ -1,5 +1,5 @@
 ---
-created: 2026-08-13
+created: 2026-08-14
 type: resource
 status: draft
 tags: [area/agencia]
@@ -19,3 +19,4 @@ Proceso operativo usado para montar funnels de adquisición (aplicado en negocio
 ## Conexiones
 - [[[Charlie Morgan - Imperium Acquisition] Guion de ventas SMMA - línea de interrogatorio]]
 - [[[Framework] SB7 + ChatGPT para Storybrand y copys de funnel]]
+- [[[Framework] Green Growth — Modelo de negocio y programa de 45 días]]

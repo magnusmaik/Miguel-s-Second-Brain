@@ -1,5 +1,5 @@
 ---
-created: 2026-08-13
+created: 2026-08-14
 type: atomic
 status: draft
 tags: [atomic, area/agencia]
@@ -14,3 +14,4 @@ Un servicio de marketing o de Meta Ads no es lo que compra el cliente — compra
 
 ## Conexiones
 - [[[Charlie Morgan - Imperium Acquisition] Guion de ventas SMMA - línea de interrogatorio]]
+- [[Vender el sistema de adquisición de clientes, no marketing]]

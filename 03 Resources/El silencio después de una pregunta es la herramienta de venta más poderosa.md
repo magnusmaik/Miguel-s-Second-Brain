@@ -1,5 +1,5 @@
 ---
-created: 2026-08-13
+created: 2026-08-14
 type: atomic
 status: draft
 tags: [atomic, area/agencia]
