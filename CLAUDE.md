@@ -76,6 +76,10 @@ Cuando generes notas atómicas sobre estos temas, linka con el MOC correspondien
 
 ## Estado actual del vault
 
-Vault recién creado. Actualmente en fase de siembra inicial.
-No hay MOCs creados aún — no intentar linkear a MOCs inexistentes.
-Cuando el vault crezca, esta sección se actualizará.
+**Última actualización:** Agosto 2026
+
+1. **Recursos y Notas Atómicas:** Se han migrado múltiples notas atómicas y literarias estructuradas hacia `03 Resources/`. Los temas principales actuales giran en torno a ventas/agencias (Frameworks "Green Growth", MarkGrowth, línea de interrogatorio) y exploración musical (DJ, perfiles sonoros).
+2. **Sistema de Tracking Diario:** Existe un sistema de traqueo de hábitos implementado en la carpeta `Tracking/`. Las notas diarias ya NO son un journal de texto libre, sino un checklist estructurado.
+   - **Plantilla:** `_Templates/tracking-diario.md`. Contiene variables booleanas en el frontmatter (ej. `despertar_piso: true`).
+   - **Dashboard:** `Tracking/Dashboard.md`. Usa DataviewJS para leer las notas diarias y mostrar la racha actual (solo de días que cumplen el "piso" aplicable) y porcentajes de meta cumplida.
+3. **MOCs:** Aún en fase de siembra inicial. No hay MOCs creados aún — no intentar linkear a MOCs inexistentes.

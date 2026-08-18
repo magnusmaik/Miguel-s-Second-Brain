@@ -16,15 +16,6 @@
       "key": "G"
     }
   ],
-  "daily-notes": [
-    {
-      "modifiers": [
-        "Mod",
-        "Shift"
-      ],
-      "key": "D"
-    }
-  ],
   "quickadd:choice:ed172b4a-979f-452a-ac32-1745bc68ddc1": [
     {
       "modifiers": [
@@ -43,5 +34,14 @@
       "key": "T"
     }
   ],
-  "workspace:undo-close-pane": []
+  "workspace:undo-close-pane": [],
+  "daily-notes": [
+    {
+      "modifiers": [
+        "Mod"
+      ],
+      "key": "D"
+    }
+  ],
+  "editor:delete-paragraph": []
 }

@@ -3,38 +3,55 @@
 ## Racha Actual (Nivel Piso)
 
 ```dataviewjs
-const pages = dv.pages('"Tracking"').where(p => p.date).sort(p => p.date, 'desc');
+const pages = dv.pages('"Tracking"').where(p => p.file.tasks.length > 0).sort(p => p.date || p.file.name, 'desc');
 const today = moment().startOf('day');
 
 let streak = 0;
 
+function checkTask(tasks, tag) {
+    const t = tasks.find(t => t.text.includes(tag));
+    return t ? t.completed : false;
+}
+
 for (let page of pages) {
-    const pageDate = moment(page.date.toString()).startOf('day');
+    let dateStr = page.date ? page.date.toString() : page.file.name;
+    const pageDate = moment(dateStr).startOf('day');
     
-    // Si la fecha es en el futuro, la ignoramos
+    // Ignorar si es una fecha en el futuro
     if (pageDate.isAfter(today)) continue;
 
     const dayOfWeek = pageDate.day(); // 0: Sunday, 1: Monday, ..., 6: Saturday
+    const tasks = page.file.tasks;
     
     // Verificaciones diarias (Piso)
-    const diario = page.despertar_piso && (page.meditacion_min >= 2) && page.pandiculacion_piso && page.espacio_piso && page.journaling_hecho && page.dientes && page.dormir_antes_2am && page.telefono_fuera_1am;
+    const despertar = checkTask(tasks, "#piso/despertar");
+    const meditacion = checkTask(tasks, "#piso/meditacion") && (page.meditacion_min >= 2);
+    const pandiculacion = checkTask(tasks, "#piso/pandiculacion");
+    const espacio = checkTask(tasks, "#piso/espacio");
+    const journaling = checkTask(tasks, "#piso/journaling");
+    const dientes = checkTask(tasks, "#piso/dientes");
+    const prioridades = checkTask(tasks, "#piso/prioridades");
+    const dormir = checkTask(tasks, "#piso/dormir");
+    const telefono = checkTask(tasks, "#piso/telefono");
+    
+    const diario = despertar && meditacion && pandiculacion && espacio && journaling && dientes && prioridades && dormir && telefono;
     
     // Verificaciones Lunes a Viernes
     let semanal = true;
     if (dayOfWeek >= 1 && dayOfWeek <= 5) {
-        semanal = page.prospeccion_piso && page.seguimiento_piso;
+        semanal = checkTask(tasks, "#piso/prospeccion") && checkTask(tasks, "#piso/seguimiento");
     }
     
     // Verificaciones Lunes, Miércoles, Viernes
     let lunMierVie = true;
     if (dayOfWeek === 1 || dayOfWeek === 3 || dayOfWeek === 5) {
-        lunMierVie = page.escaneo_pendulacion;
+        lunMierVie = checkTask(tasks, "#piso/escaneo");
     }
     
     // Verificaciones Domingo
     let domingo = true;
     if (dayOfWeek === 0) {
-        domingo = page.registro_patrones_hecho && page.auditoria_negocio_hecho;
+        domingo = checkTask(tasks, "#domingo/registro") && checkTask(tasks, "#domingo/auditoria");
     }
     
     const pisoCumplido = diario && semanal && lunMierVie && domingo;
@@ -46,18 +63,23 @@ for (let page of pages) {
         if (pageDate.isBefore(today)) {
             break;
         }
-        // Si no se cumplió y es hoy, simplemente no suma a la racha, pero no la rompe si ayer se cumplió.
-        // Asumimos que hoy todavía está en progreso.
+        // Si no se cumplió y es hoy, simplemente no suma a la racha, pero no la rompe
     }
 }
 
 dv.paragraph(`🔥 **Racha actual:** ${streak} días consecutivos cumpliendo el nivel piso.`);
 ```
 
-## Comparación Piso vs Meta
+## Comparación Piso vs Meta (Últimos 30 días)
 
 ```dataviewjs
-const pages = dv.pages('"Tracking"').where(p => p.date);
+const thirtyDaysAgo = moment().subtract(30, 'days').startOf('day');
+const pages = dv.pages('"Tracking"').where(p => {
+    let dStr = p.date ? p.date.toString() : p.file.name;
+    let d = moment(dStr).startOf('day');
+    return d.isSameOrAfter(thirtyDaysAgo) && p.file.tasks.length > 0;
+});
+
 const total = pages.length;
 
 if (total === 0) {
@@ -67,28 +89,42 @@ if (total === 0) {
     let prospeccionP = 0, prospeccionM = 0;
     let cuerpoP = 0, cuerpoM = 0;
     let espacioP = 0, espacioM = 0;
+    let totalSemanal = 0;
 
-    for (let p of pages) {
-        if (p.despertar_piso) despertarP++;
-        if (p.despertar_meta) despertarM++;
-        
-        if (p.prospeccion_piso) prospeccionP++;
-        if (p.prospeccion_meta) prospeccionM++;
-        
-        if (p.pandiculacion_piso) cuerpoP++;
-        if (p.pandiculacion_meta) cuerpoM++;
-        
-        if (p.espacio_piso) espacioP++;
-        if (p.espacio_meta) espacioM++;
+    function checkTask(tasks, tag) {
+        const t = tasks.find(t => t.text.includes(tag));
+        return t ? t.completed : false;
     }
 
-    const formatPct = (val) => `${Math.round((val / total) * 100)}%`;
+    for (let page of pages) {
+        const tasks = page.file.tasks;
+        let dStr = page.date ? page.date.toString() : page.file.name;
+        const pageDate = moment(dStr).startOf('day');
+        const dayOfWeek = pageDate.day();
+        
+        if (checkTask(tasks, "#piso/despertar")) despertarP++;
+        if (checkTask(tasks, "#meta/despertar")) despertarM++;
+        
+        if (dayOfWeek >= 1 && dayOfWeek <= 5) {
+            totalSemanal++;
+            if (checkTask(tasks, "#piso/prospeccion")) prospeccionP++;
+            if (checkTask(tasks, "#meta/prospeccion")) prospeccionM++;
+        }
+        
+        if (checkTask(tasks, "#piso/pandiculacion")) cuerpoP++;
+        if (checkTask(tasks, "#meta/pandiculacion")) cuerpoM++;
+        
+        if (checkTask(tasks, "#piso/espacio")) espacioP++;
+        if (checkTask(tasks, "#meta/espacio")) espacioM++;
+    }
+
+    const formatPct = (val, baseTotal) => `${Math.round((val / baseTotal) * 100)}%`;
 
     dv.table(["Categoría", "% Piso Cumplido", "% Meta Cumplida"], [
-        ["Despertar/Sueño", formatPct(despertarP), formatPct(despertarM)],
-        ["Prospección", formatPct(prospeccionP), formatPct(prospeccionM)],
-        ["Cuerpo/Somático", formatPct(cuerpoP), formatPct(cuerpoM)],
-        ["Espacio", formatPct(espacioP), formatPct(espacioM)]
+        ["Despertar/Sueño", formatPct(despertarP, total), formatPct(despertarM, total)],
+        ["Prospección", totalSemanal > 0 ? formatPct(prospeccionP, totalSemanal) : "0%", totalSemanal > 0 ? formatPct(prospeccionM, totalSemanal) : "0%"],
+        ["Cuerpo/Somático", formatPct(cuerpoP, total), formatPct(cuerpoM, total)],
+        ["Espacio", formatPct(espacioP, total), formatPct(espacioM, total)]
     ]);
 }
 ```
@@ -99,3 +135,4 @@ if (total === 0) {
 CALENDAR date
 FROM "Tracking"
 ```
+*(Nota: El calendario visualiza las notas existentes de manera robusta. Para colorear celdas completas sin depender de CSS complejo, nos apoyamos en la información de arriba para revisar porcentajes reales de meta/piso).*
