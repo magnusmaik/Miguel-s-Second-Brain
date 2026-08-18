@@ -1,4 +1,4 @@
 {
-  "folder": "00 Inbox",
-  "template": "_Templates/Daily Note"
+  "folder": "Tracking",
+  "template": "_Templates/tracking-diario.md"
 }
