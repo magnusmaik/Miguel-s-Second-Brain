@@ -1,6 +1,8 @@
 ---
 date: {{date}}
 meditacion_min: 0
+entrenamiento_tipo: ""
+entrenamiento_rpe: 0
 ---
 
 # {{date}}
@@ -19,6 +21,7 @@ meditacion_min: 0
 - [ ] Todos los seguimientos pendientes (meta) #meta/seguimiento
 
 ## Cuerpo
+- [ ] Entrenamiento — asistí (piso) #piso/entrenamiento — actualizar `entrenamiento_tipo` y `entrenamiento_rpe` en propiedades
 - [ ] Pandiculación 1 ciclo (piso) #piso/pandiculacion
 - [ ] Pandiculación completa 3-4 ciclos (meta) #meta/pandiculacion
 - [ ] Escaneo con pendulación — solo Lun/Mié/Vie (piso) #piso/escaneo

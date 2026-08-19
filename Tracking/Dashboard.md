@@ -45,7 +45,7 @@ for (let page of pages) {
     // Verificaciones Lunes, Miércoles, Viernes
     let lunMierVie = true;
     if (dayOfWeek === 1 || dayOfWeek === 3 || dayOfWeek === 5) {
-        lunMierVie = checkTask(tasks, "#piso/escaneo");
+        lunMierVie = checkTask(tasks, "#piso/escaneo") && checkTask(tasks, "#piso/entrenamiento");
     }
     
     // Verificaciones Domingo
@@ -87,9 +87,12 @@ if (total === 0) {
 } else {
     let despertarP = 0, despertarM = 0;
     let prospeccionP = 0, prospeccionM = 0;
+    let entrenamientoP = 0;
     let cuerpoP = 0, cuerpoM = 0;
     let espacioP = 0, espacioM = 0;
+    let cierreP = 0, cierreM = 0;
     let totalSemanal = 0;
+    let totalLMV = 0;
 
     function checkTask(tasks, tag) {
         const t = tasks.find(t => t.text.includes(tag));
@@ -111,11 +114,20 @@ if (total === 0) {
             if (checkTask(tasks, "#meta/prospeccion")) prospeccionM++;
         }
         
+        if (dayOfWeek === 1 || dayOfWeek === 3 || dayOfWeek === 5) {
+            totalLMV++;
+            if (checkTask(tasks, "#piso/entrenamiento")) entrenamientoP++;
+        }
+        
         if (checkTask(tasks, "#piso/pandiculacion")) cuerpoP++;
         if (checkTask(tasks, "#meta/pandiculacion")) cuerpoM++;
         
         if (checkTask(tasks, "#piso/espacio")) espacioP++;
         if (checkTask(tasks, "#meta/espacio")) espacioM++;
+        
+        // Cierre se considera cumplido si se cumplen sus componentes
+        if (checkTask(tasks, "#piso/journaling") && checkTask(tasks, "#piso/dientes") && checkTask(tasks, "#piso/prioridades") && checkTask(tasks, "#piso/dormir") && checkTask(tasks, "#piso/telefono")) cierreP++;
+        if (checkTask(tasks, "#meta/dormir")) cierreM++;
     }
 
     const formatPct = (val, baseTotal) => `${Math.round((val / baseTotal) * 100)}%`;
@@ -123,8 +135,10 @@ if (total === 0) {
     dv.table(["Categoría", "% Piso Cumplido", "% Meta Cumplida"], [
         ["Despertar/Sueño", formatPct(despertarP, total), formatPct(despertarM, total)],
         ["Prospección", totalSemanal > 0 ? formatPct(prospeccionP, totalSemanal) : "0%", totalSemanal > 0 ? formatPct(prospeccionM, totalSemanal) : "0%"],
+        ["Entrenamiento", totalLMV > 0 ? formatPct(entrenamientoP, totalLMV) : "0%", "N/A"],
         ["Cuerpo/Somático", formatPct(cuerpoP, total), formatPct(cuerpoM, total)],
-        ["Espacio", formatPct(espacioP, total), formatPct(espacioM, total)]
+        ["Espacio", formatPct(espacioP, total), formatPct(espacioM, total)],
+        ["Cierre", formatPct(cierreP, total), formatPct(cierreM, total)]
     ]);
 }
 ```
