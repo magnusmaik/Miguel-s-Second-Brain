@@ -39,7 +39,7 @@ for (let page of pages) {
     // Verificaciones Lunes a Viernes
     let semanal = true;
     if (dayOfWeek >= 1 && dayOfWeek <= 5) {
-        semanal = checkTask(tasks, "#piso/prospeccion") && checkTask(tasks, "#piso/seguimiento");
+        semanal = checkTask(tasks, "#piso/prospeccion") && checkTask(tasks, "#piso/contacto");
     }
     
     // Verificaciones Lunes, Miércoles, Viernes
@@ -86,11 +86,11 @@ if (total === 0) {
     dv.paragraph("No hay datos todavía.");
 } else {
     let despertarP = 0, despertarM = 0;
-    let prospeccionP = 0, prospeccionM = 0;
+    let negocioP = 0, negocioM = 0;
     let entrenamientoP = 0;
     let cuerpoP = 0, cuerpoM = 0;
     let espacioP = 0, espacioM = 0;
-    let cierreP = 0, cierreM = 0;
+    let cierreP = 0; 
     let totalSemanal = 0;
     let totalLMV = 0;
 
@@ -105,40 +105,48 @@ if (total === 0) {
         const pageDate = moment(dStr).startOf('day');
         const dayOfWeek = pageDate.day();
         
-        if (checkTask(tasks, "#piso/despertar")) despertarP++;
-        if (checkTask(tasks, "#meta/despertar")) despertarM++;
+        // Despertar/Sueño (Piso: despertar + dormir retrospectivo)
+        if (checkTask(tasks, "#piso/despertar") && checkTask(tasks, "#piso/dormir")) despertarP++;
+        if (checkTask(tasks, "#meta/despertar") && checkTask(tasks, "#meta/dormir")) despertarM++;
         
+        // Negocio (Solo de Lunes a Viernes)
         if (dayOfWeek >= 1 && dayOfWeek <= 5) {
             totalSemanal++;
-            if (checkTask(tasks, "#piso/prospeccion")) prospeccionP++;
-            if (checkTask(tasks, "#meta/prospeccion")) prospeccionM++;
+            if (checkTask(tasks, "#piso/prospeccion") && checkTask(tasks, "#piso/contacto")) negocioP++;
+            if (checkTask(tasks, "#meta/prospeccion") && checkTask(tasks, "#meta/contacto")) negocioM++;
         }
         
+        // Entrenamiento (Solo de Lunes, Miércoles y Viernes)
         if (dayOfWeek === 1 || dayOfWeek === 3 || dayOfWeek === 5) {
             totalLMV++;
             if (checkTask(tasks, "#piso/entrenamiento")) entrenamientoP++;
         }
         
-        if (checkTask(tasks, "#piso/pandiculacion")) cuerpoP++;
+        // Cuerpo/Somático
+        let cuerpoPAplicable = checkTask(tasks, "#piso/pandiculacion");
+        if (dayOfWeek === 1 || dayOfWeek === 3 || dayOfWeek === 5) {
+            cuerpoPAplicable = cuerpoPAplicable && checkTask(tasks, "#piso/escaneo");
+        }
+        if (cuerpoPAplicable) cuerpoP++;
         if (checkTask(tasks, "#meta/pandiculacion")) cuerpoM++;
         
+        // Espacio
         if (checkTask(tasks, "#piso/espacio")) espacioP++;
         if (checkTask(tasks, "#meta/espacio")) espacioM++;
         
-        // Cierre se considera cumplido si se cumplen sus componentes
-        if (checkTask(tasks, "#piso/journaling") && checkTask(tasks, "#piso/dientes") && checkTask(tasks, "#piso/prioridades") && checkTask(tasks, "#piso/dormir") && checkTask(tasks, "#piso/telefono")) cierreP++;
-        if (checkTask(tasks, "#meta/dormir")) cierreM++;
+        // Cierre
+        if (checkTask(tasks, "#piso/journaling") && checkTask(tasks, "#piso/dientes") && checkTask(tasks, "#piso/prioridades") && checkTask(tasks, "#piso/telefono")) cierreP++;
     }
 
     const formatPct = (val, baseTotal) => `${Math.round((val / baseTotal) * 100)}%`;
 
     dv.table(["Categoría", "% Piso Cumplido", "% Meta Cumplida"], [
         ["Despertar/Sueño", formatPct(despertarP, total), formatPct(despertarM, total)],
-        ["Prospección", totalSemanal > 0 ? formatPct(prospeccionP, totalSemanal) : "0%", totalSemanal > 0 ? formatPct(prospeccionM, totalSemanal) : "0%"],
+        ["Negocio", totalSemanal > 0 ? formatPct(negocioP, totalSemanal) : "0%", totalSemanal > 0 ? formatPct(negocioM, totalSemanal) : "0%"],
         ["Entrenamiento", totalLMV > 0 ? formatPct(entrenamientoP, totalLMV) : "0%", "N/A"],
         ["Cuerpo/Somático", formatPct(cuerpoP, total), formatPct(cuerpoM, total)],
         ["Espacio", formatPct(espacioP, total), formatPct(espacioM, total)],
-        ["Cierre", formatPct(cierreP, total), formatPct(cierreM, total)]
+        ["Cierre", formatPct(cierreP, total), "N/A"]
     ]);
 }
 ```
