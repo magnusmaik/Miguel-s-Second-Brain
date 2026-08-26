@@ -3,55 +3,61 @@
 ## Racha Actual (Nivel Piso)
 
 ```dataviewjs
-const pages = dv.pages('"Tracking"').where(p => p.file.tasks.length > 0).sort(p => p.date || p.file.name, 'desc');
+const pages = dv.pages('"Tracking"')
+    .where(p => (p.file.tasks && p.file.tasks.length > 0) || p.despertar_piso !== undefined)
+    .sort(p => p.date || p.file.name, 'desc');
 const today = moment().startOf('day');
 
 let streak = 0;
 
-function checkTask(tasks, tag) {
-    const t = tasks.find(t => t.text.includes(tag));
-    return t ? t.completed : false;
+function checkPiso(page, yamlProp, tag) {
+    if (page[yamlProp] !== undefined) {
+        return !!page[yamlProp];
+    }
+    if (page.file.tasks) {
+        const t = page.file.tasks.find(t => t.text.includes(tag));
+        return t ? t.completed : false;
+    }
+    return false;
 }
 
 for (let page of pages) {
     let dateStr = page.date ? page.date.toString() : page.file.name;
     const pageDate = moment(dateStr).startOf('day');
     
-    // Ignorar si es una fecha en el futuro
     if (pageDate.isAfter(today)) continue;
 
     const dayOfWeek = pageDate.day(); // 0: Sunday, 1: Monday, ..., 6: Saturday
-    const tasks = page.file.tasks;
     
     // Verificaciones diarias (Piso)
-    const despertar = checkTask(tasks, "#piso/despertar");
-    const meditacion = checkTask(tasks, "#piso/meditacion") && (page.meditacion_min >= 2);
-    const pandiculacion = checkTask(tasks, "#piso/pandiculacion");
-    const espacio = checkTask(tasks, "#piso/espacio");
-    const journaling = checkTask(tasks, "#piso/journaling");
-    const dientes = checkTask(tasks, "#piso/dientes");
-    const prioridades = checkTask(tasks, "#piso/prioridades");
-    const dormir = checkTask(tasks, "#piso/dormir");
-    const telefono = checkTask(tasks, "#piso/telefono");
+    const despertar = checkPiso(page, "despertar_piso", "#piso/despertar");
+    const meditacion = checkPiso(page, "meditacion_piso", "#piso/meditacion") && (page.meditacion_min >= 2);
+    const pandiculacion = checkPiso(page, "pandiculacion_piso", "#piso/pandiculacion");
+    const espacio = checkPiso(page, "espacio_piso", "#piso/espacio");
+    const journaling = checkPiso(page, "journaling_piso", "#piso/journaling");
+    const dientes = checkPiso(page, "dientes_piso", "#piso/dientes");
+    const prioridades = checkPiso(page, "prioridades_piso", "#piso/prioridades");
+    const dormir = checkPiso(page, "dormir_piso", "#piso/dormir");
+    const telefono = checkPiso(page, "telefono_piso", "#piso/telefono");
     
     const diario = despertar && meditacion && pandiculacion && espacio && journaling && dientes && prioridades && dormir && telefono;
     
     // Verificaciones Lunes a Viernes
     let semanal = true;
     if (dayOfWeek >= 1 && dayOfWeek <= 5) {
-        semanal = checkTask(tasks, "#piso/prospeccion") && checkTask(tasks, "#piso/contacto");
+        semanal = checkPiso(page, "prospeccion_piso", "#piso/prospeccion") && checkPiso(page, "contacto_piso", "#piso/contacto");
     }
     
     // Verificaciones Lunes, Miércoles, Viernes
     let lunMierVie = true;
     if (dayOfWeek === 1 || dayOfWeek === 3 || dayOfWeek === 5) {
-        lunMierVie = checkTask(tasks, "#piso/escaneo") && checkTask(tasks, "#piso/entrenamiento");
+        lunMierVie = checkPiso(page, "escaneo_piso", "#piso/escaneo") && checkPiso(page, "entrenamiento_piso", "#piso/entrenamiento");
     }
     
     // Verificaciones Domingo
     let domingo = true;
     if (dayOfWeek === 0) {
-        domingo = checkTask(tasks, "#domingo/registro") && checkTask(tasks, "#domingo/auditoria");
+        domingo = checkPiso(page, "domingo_registro", "#domingo/registro") && checkPiso(page, "domingo_auditoria", "#domingo/auditoria");
     }
     
     const pisoCumplido = diario && semanal && lunMierVie && domingo;
@@ -59,11 +65,9 @@ for (let page of pages) {
     if (pisoCumplido) {
         streak++;
     } else {
-        // Si no se cumplió el piso y es un día anterior a hoy, la racha se rompe
         if (pageDate.isBefore(today)) {
             break;
         }
-        // Si no se cumplió y es hoy, simplemente no suma a la racha, pero no la rompe
     }
 }
 
@@ -77,7 +81,7 @@ const thirtyDaysAgo = moment().subtract(30, 'days').startOf('day');
 const pages = dv.pages('"Tracking"').where(p => {
     let dStr = p.date ? p.date.toString() : p.file.name;
     let d = moment(dStr).startOf('day');
-    return d.isSameOrAfter(thirtyDaysAgo) && p.file.tasks.length > 0;
+    return d.isSameOrAfter(thirtyDaysAgo) && ((p.file.tasks && p.file.tasks.length > 0) || p.despertar_piso !== undefined);
 });
 
 const total = pages.length;
@@ -94,48 +98,51 @@ if (total === 0) {
     let totalSemanal = 0;
     let totalLMV = 0;
 
-    function checkTask(tasks, tag) {
-        const t = tasks.find(t => t.text.includes(tag));
-        return t ? t.completed : false;
+    function checkVal(page, yamlProp, tag) {
+        if (page[yamlProp] !== undefined) return !!page[yamlProp];
+        if (page.file.tasks) {
+            const t = page.file.tasks.find(t => t.text.includes(tag));
+            return t ? t.completed : false;
+        }
+        return false;
     }
 
     for (let page of pages) {
-        const tasks = page.file.tasks;
         let dStr = page.date ? page.date.toString() : page.file.name;
         const pageDate = moment(dStr).startOf('day');
         const dayOfWeek = pageDate.day();
         
-        // Despertar/Sueño (Piso: despertar + dormir retrospectivo)
-        if (checkTask(tasks, "#piso/despertar") && checkTask(tasks, "#piso/dormir")) despertarP++;
-        if (checkTask(tasks, "#meta/despertar") && checkTask(tasks, "#meta/dormir")) despertarM++;
+        // Despertar/Sueño
+        if (checkVal(page, "despertar_piso", "#piso/despertar") && checkVal(page, "dormir_piso", "#piso/dormir")) despertarP++;
+        if (checkVal(page, "despertar_meta", "#meta/despertar") && checkVal(page, "dormir_meta", "#meta/dormir")) despertarM++;
         
-        // Negocio (Solo de Lunes a Viernes)
+        // Negocio
         if (dayOfWeek >= 1 && dayOfWeek <= 5) {
             totalSemanal++;
-            if (checkTask(tasks, "#piso/prospeccion") && checkTask(tasks, "#piso/contacto")) negocioP++;
-            if (checkTask(tasks, "#meta/prospeccion") && checkTask(tasks, "#meta/contacto")) negocioM++;
+            if (checkVal(page, "prospeccion_piso", "#piso/prospeccion") && checkVal(page, "contacto_piso", "#piso/contacto")) negocioP++;
+            if (checkVal(page, "prospeccion_meta", "#meta/prospeccion") && checkVal(page, "contacto_meta", "#meta/contacto")) negocioM++;
         }
         
-        // Entrenamiento (Solo de Lunes, Miércoles y Viernes)
+        // Entrenamiento
         if (dayOfWeek === 1 || dayOfWeek === 3 || dayOfWeek === 5) {
             totalLMV++;
-            if (checkTask(tasks, "#piso/entrenamiento")) entrenamientoP++;
+            if (checkVal(page, "entrenamiento_piso", "#piso/entrenamiento")) entrenamientoP++;
         }
         
         // Cuerpo/Somático
-        let cuerpoPAplicable = checkTask(tasks, "#piso/pandiculacion");
+        let cuerpoPAplicable = checkVal(page, "pandiculacion_piso", "#piso/pandiculacion");
         if (dayOfWeek === 1 || dayOfWeek === 3 || dayOfWeek === 5) {
-            cuerpoPAplicable = cuerpoPAplicable && checkTask(tasks, "#piso/escaneo");
+            cuerpoPAplicable = cuerpoPAplicable && checkVal(page, "escaneo_piso", "#piso/escaneo");
         }
         if (cuerpoPAplicable) cuerpoP++;
-        if (checkTask(tasks, "#meta/pandiculacion")) cuerpoM++;
+        if (checkVal(page, "pandiculacion_meta", "#meta/pandiculacion")) cuerpoM++;
         
         // Espacio
-        if (checkTask(tasks, "#piso/espacio")) espacioP++;
-        if (checkTask(tasks, "#meta/espacio")) espacioM++;
+        if (checkVal(page, "espacio_piso", "#piso/espacio")) espacioP++;
+        if (checkVal(page, "espacio_meta", "#meta/espacio")) espacioM++;
         
         // Cierre
-        if (checkTask(tasks, "#piso/journaling") && checkTask(tasks, "#piso/dientes") && checkTask(tasks, "#piso/prioridades") && checkTask(tasks, "#piso/telefono")) cierreP++;
+        if (checkVal(page, "journaling_piso", "#piso/journaling") && checkVal(page, "dientes_piso", "#piso/dientes") && checkVal(page, "prioridades_piso", "#piso/prioridades") && checkVal(page, "telefono_piso", "#piso/telefono")) cierreP++;
     }
 
     const formatPct = (val, baseTotal) => `${Math.round((val / baseTotal) * 100)}%`;
