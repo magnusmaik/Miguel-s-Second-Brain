@@ -1,48 +1,27 @@
 ---
 date: {{date}}
+type: daily
+tags: [daily]
 ---
 
 # {{date}}
 
-## Despertar / Sueño
-- [ ] Protocolo alarma ejecutado (piso) #piso/despertar
-- [ ] Despierto antes 10:05 (meta) #meta/despertar
-- [ ] Anoche dormí antes de las 2:00am (piso, retrospectivo) #piso/dormir
-- [ ] Anoche dormí antes de la 1:30am (meta, retrospectivo) #meta/dormir
+## Focus de hoy
+- 
 
-## Mente
-- [ ] Meditación hecha (piso: 2 min) #piso/meditacion
-  - Minutos reales:: 0
+## Hábitos (Fase 1)
+- [ ] Lectura: 1 página #habito/lectura
+- [ ] Celular fuera de la habitación #habito/sueño
+- [ ] Hora a la que me dormí:: 
+- [ ] Movimiento (si no hubo escalada): 5 min #habito/movimiento
+- [ ] Escalada según plan (si correspondía) #habito/escalada
+- [ ] 3 respiraciones conscientes #habito/somatico
+- [ ] Idea de contenido de hoy:: 
 
-## Negocio
-- [ ] 1 negocio nuevo agregado a planilla con mini-diagnóstico (piso) #piso/prospeccion
-- [ ] 3-5 negocios + diagnóstico completo cargado (meta) #meta/prospeccion
-- [ ] 1 contacto real ejecutado — nuevo o seguimiento (piso) #piso/contacto
-- [ ] Todos los contactos/seguimientos planeados del día ejecutados (meta) #meta/contacto
+## Capturas del día
+- 
 
-## Cuerpo
-- [ ] Entrenamiento — asistí (piso) #piso/entrenamiento
-  - Tipo:: ""
-  - RPE:: 0
-- [ ] Pandiculación 1 ciclo (piso) #piso/pandiculacion
-- [ ] Pandiculación completa 3-4 ciclos (meta) #meta/pandiculacion
-- [ ] Escaneo con pendulación — solo Lun/Mié/Vie (piso) #piso/escaneo
+## Preguntas abiertas
+- 
 
-## Espacio
-- [ ] Cama hecha (piso) #piso/espacio
-- [ ] Habitación + escritorio ordenados (meta) #meta/espacio
-
-## Cierre
-- [ ] Journaling de descarga (piso: una frase) #piso/journaling
-- [ ] Dientes #piso/dientes
-- [ ] 3 prioridades de mañana escritas #piso/prioridades
-- [ ] Teléfono fuera del cuarto desde la 1:00am (piso) #piso/telefono
-
-*(Nota: el check de "dormí antes de tal hora" se revisa al día siguiente, en la sección Despertar — no se puede verificar la misma noche antes de dormir)*
-
-## Solo domingo
-- [ ] Registro semanal de patrones #domingo/registro
-- [ ] Auditoría de negocio #domingo/auditoria
-
-## Nota del día
-¿Qué factores facilitaron el éxito de hoy o qué obstáculos se interpusieron?
+## Reflexión
