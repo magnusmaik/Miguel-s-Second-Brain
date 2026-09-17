@@ -44,6 +44,12 @@ area/personal
 estado/draft
 estado/evergreen
 estado/activo
+habito/lectura
+habito/sueño
+habito/movimiento
+habito/escalada
+habito/somatico
+habito/contenido
 ```
 
 No crear tags fuera de esta lista sin instrucción explícita.
